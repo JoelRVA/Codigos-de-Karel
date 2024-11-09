@@ -1,0 +1,72 @@
+import rekarel.globals;
+class program {
+	define gira (n) {
+		iterate (n) {
+			turnleft();
+		}
+	}
+
+	define deja (n) {
+		iterate (n) {
+			putbeeper();
+		}
+	}
+
+	define coge-todo () {
+		while (nextToABeeper) {
+			pickbeeper();
+		}
+	}
+
+	define pared () {
+		while (frontIsClear) {
+			move();
+		}
+	}
+
+	define termina (direccion) {
+		if (iszero(direccion)) {
+			while (!facingSouth) {
+				turnleft();
+			}
+		} else {
+			while (!facingNorth) {
+				turnleft();
+			}
+		}
+		turnoff();
+	}
+
+	define super-avanza () {
+		if (leftIsClear) {
+			gira (1);
+		} else {
+			if (rightIsClear) {
+				gira (3);
+			}
+		}
+		if (frontIsClear) {
+			move();
+		}
+	}
+
+	define resuelve (max-avance, pasos, segundo) {
+		if (currentRow < segundo) {
+			termina (0);
+		}
+		if (frontIsBlocked && leftIsBlocked && rightIsBlocked) {
+			termina (1);
+		}
+		if (max-avance == pasos) {
+			resuelve (max-avance, 0, succ(segundo));
+		}
+		super-avanza ();
+		resuelve (max-avance, succ(pasos), segundo);
+	}
+
+	program() {
+		resuelve (beepersOnFloor, 0, 1);
+		termina (1);
+	}   
+
+}
