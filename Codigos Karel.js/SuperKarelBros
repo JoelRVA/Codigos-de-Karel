@@ -1,0 +1,103 @@
+class program {
+
+void avanza()
+{
+
+//saber en que direccion estas
+if(facingNorth)
+{
+//Te dirige a la pared, no hay casos especiales
+
+while(frontIsClear){ move();} 
+//Verifica si no es el final
+if(frontIsBlocked && leftIsBlocked && rightIsBlocked){ turnoff();}
+else{ 
+//Ve hacia donde girar derecha o izquierda
+if(rightIsClear){ turnleft();  turnleft(); turnleft();}
+else{ turnleft();}
+} avanza();
+}
+if(facingSouth)
+{ 
+move();
+//Ve si hay un lugar donde girar ya que es probable-
+//que no haya pared al frente
+while(leftIsBlocked && rightIsBlocked && frontIsClear){ move();}
+//Verifica si no es el final
+if(frontIsBlocked && leftIsBlocked && rightIsBlocked){ turnoff();}
+else{ 
+//ve si el no hubo pared y si no pone beeper
+if(frontIsClear){ putbeeper();}
+//Ve hacia donde girar derecha o izquierda
+if(rightIsClear){ turnleft();  turnleft(); turnleft();}
+else{ turnleft();}
+} avanza();
+}
+
+if(facingEast)
+{ // avanza mientras no haya pared
+while(frontIsClear){ move();
+//Pone beeper si la pared sur no esta bloqueada 
+//en este caso es la pared de la derecha
+if(rightIsClear){ putbeeper(); }}
+//Quita beepers innecesarios
+if(nextToABeeper){ pickbeeper();}
+//Verifica si no es el final
+if(frontIsBlocked && leftIsBlocked && rightIsBlocked){ turnoff();}
+else{ 
+//si puede girar a los dos lados gira a la izquierda 
+//ya que solo no puede haber pared sur(derecha)
+if(rightIsClear && leftIsClear){ turnleft(); putbeeper(); avanza();
+}
+else{
+if(rightIsClear){ turnleft();  turnleft(); turnleft(); 
+ 
+}
+else{ turnleft();} }
+} avanza();}
+
+
+if(facingWest)
+{ // avanza mientras no haya pared
+while(frontIsClear){ move(); 
+//Pone beeper si la pared sur no esta bloqueada 
+//en este caso es la pared de la izquierda
+if(leftIsClear){ putbeeper(); }}
+//Quita beepers innecesarios
+if(nextToABeeper){ pickbeeper();}
+//Verifica si no es el final
+if(frontIsBlocked && leftIsBlocked && rightIsBlocked){ turnoff();}
+else{
+//si puede girar a los dos lados gira a la derecha 
+//ya que solo no puede haber pared sur(izquierda)
+if(rightIsClear && leftIsClear){ turnleft();  turnleft(); turnleft(); putbeeper();  avanza();
+}
+else{
+if(rightIsClear){ turnleft();  turnleft(); turnleft(); 
+ 
+}
+else{ turnleft();} }
+} avanza();}
+
+
+}
+
+
+
+    program () {
+    /* 
+    Este problema trata de pasillos osea lineas rectas
+    que no se cruzan, que no son ni circuitos y ni
+    lugares mayores a pasillos de longitud 1.
+    En este problema tienes que poner beepers en 
+    lugares donde no hay pared sur. 
+    Exiten diversos casos estos que te puse son
+    combinacion de varios, pero bien elegidos.
+    */
+        // Funcion iniciadora 
+        
+        avanza();
+        
+        turnoff();
+    }
+}
